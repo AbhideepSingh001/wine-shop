@@ -45,7 +45,7 @@ GLOBAL RESET
 
             background: var(--charcoal-black);
             color: var(--text-color);
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Cutive Mono', sans-serif;
 
         }
 
@@ -209,6 +209,10 @@ FOOTER
             color: var(--accent-gold);
 
         }
+        .navbar-brand img.logo{
+    height: 65px;
+    width: auto;
+}
     </style>
 
     @stack('styles')
@@ -228,8 +232,9 @@ NAVBAR
 
         <div class="container">
 
-            <a class="navbar-brand" href="/"><img src="" alt=""></a>
-
+            <a class="navbar-brand" href="/">
+                <img src="{{ asset('assets/images/logo/logo.png') }}" alt="WineHouse Logo" class="logo">
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -264,9 +269,22 @@ NAVBAR
 
 
                     {{-- Search Icon --}}
-                    <li class="nav-item icon-btn">
+                    <li class="nav-item ms-3">
 
-                        <i class="bi bi-search"></i>
+                        <form action="/wines" method="GET" class="d-flex">
+
+                            <input
+                                type="text"
+                                name="search"
+                                class="form-control me-2"
+                                placeholder="Search wine..."
+                                style="width:180px;">
+
+                            <button class="btn btn-gold" type="submit">
+                                <i class="bi bi-search"></i>
+                            </button>
+
+                        </form>
 
                     </li>
 
