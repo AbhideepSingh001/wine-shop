@@ -9,7 +9,8 @@ class Collection extends Model
     protected $fillable = [
         'name',
         'slug',
-        'description'
+        'description',
+        'image'
     ];
 
     public function wines()
@@ -17,3 +18,8 @@ class Collection extends Model
         return $this->belongsToMany(Wine::class);
     }
 }
+
+
+
+
+

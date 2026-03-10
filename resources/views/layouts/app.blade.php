@@ -11,6 +11,8 @@
     {{-- Bootstrap --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
+    {{-- Favicon --}}
+    <link rel="shortcut icon" href="{{ asset('assets/icons/favicon.png') }}" type="image/x-icon">
     {{-- Google Font --}}
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
@@ -29,7 +31,7 @@ GLOBAL DESIGN SYSTEM
             --text-color: black;
 
         }
-
+        
 
         /* ===============================
 GLOBAL RESET
@@ -210,7 +212,7 @@ FOOTER
 
         }
         .navbar-brand img.logo{
-    height: 65px;
+    height: 40px;
     width: auto;
 }
     </style>

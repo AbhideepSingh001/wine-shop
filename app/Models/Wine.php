@@ -9,6 +9,7 @@ class Wine extends Model
     protected $fillable = [
         'category_id',
         'name',
+        'slug',
         'brand',
         'country',
         'year',
@@ -27,5 +28,10 @@ class Wine extends Model
     public function collections()
     {
         return $this->belongsToMany(Collection::class);
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
     }
 }

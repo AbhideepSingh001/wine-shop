@@ -166,135 +166,47 @@ WINE LISTING
         {{-- PRODUCTS GRID --}}
 
         <div class="row g-4">
+            <div class="row g-4">
 
+                @foreach($wines as $wine)
 
-            <div class="col-md-3">
+                <div class="col-md-3">
 
-                <div class="wine-card">
+                    <div class="wine-card">
 
-                    <img src="{{ asset('assets/images/wine-products/Cabernet.jpg') }}">
+                        <img src="{{ asset('storage/'.$wine->image) }}">
 
-                    <div class="wine-info">
+                        <div class="wine-info">
 
-                        <div class="wine-name">Cabernet Sauvignon</div>
+                            <div class="wine-name">
 
-                        <div class="wine-price">$120</div>
+                                <a href="{{ route('wines.show',$wine->id) }}">
 
-                        <button class="btn btn-gold">Add to Wishlist</button>
+                                    {{ $wine->name }}
 
-                    </div>
+                                </a>
 
-                </div>
+                            </div>
 
-            </div>
+                            <div class="wine-price">
 
+                                ${{ $wine->price }}
 
+                            </div>
 
-            <div class="col-md-3">
+                            <button class="btn btn-gold">
 
-                <div class="wine-card">
+                                Add to Wishlist
 
-                    <img src="{{ asset('assets/images/wine-products/Chardonnay.jpg') }}">
+                            </button>
 
-                    <div class="wine-info">
-
-                        <div class="wine-name">Chardonnay</div>
-
-                        <div class="wine-price">$95</div>
-
-                        <button class="btn btn-gold">Add to Wishlist</button>
+                        </div>
 
                     </div>
 
                 </div>
 
-            </div>
-
-
-
-            <div class="col-md-3">
-
-                <div class="wine-card">
-
-                    <img src="{{ asset('assets/images/wine-products/Merlot.jpg') }}">
-
-                    <div class="wine-info">
-
-                        <div class="wine-name">Merlot</div>
-
-                        <div class="wine-price">$110</div>
-
-                        <button class="btn btn-gold">Add to Wishlist</button>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-
-            <div class="col-md-3">
-
-                <div class="wine-card">
-
-                    <img src="{{ asset('assets/images/wine-products/Pinot.jpg') }}">
-
-                    <div class="wine-info">
-
-                        <div class="wine-name">Pinot Noir</div>
-
-                        <div class="wine-price">$105</div>
-
-                        <button class="btn btn-gold">Add to Wishlist</button>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-
-            <div class="col-md-3">
-
-                <div class="wine-card">
-
-                    <img src="{{ asset('assets/images/wine-products/Sauvignon.jpg') }}">
-
-                    <div class="wine-info">
-
-                        <div class="wine-name">Sauvignon Blanc</div>
-
-                        <div class="wine-price">$90</div>
-
-                        <button class="btn btn-gold">Add to Wishlist</button>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-
-            <div class="col-md-3">
-
-                <div class="wine-card">
-
-                    <img src="{{ asset('assets/images/wine-products/Champagne.jpg') }}">
-
-                    <div class="wine-info">
-
-                        <div class="wine-name">Premium Champagne</div>
-
-                        <div class="wine-price">$150</div>
-
-                        <button class="btn btn-gold">Add to Wishlist</button>
-
-                    </div>
-
-                </div>
+                @endforeach
 
             </div>
 
