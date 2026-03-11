@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\wine;
-use App\models\Category;
+use Illuminate\Support\Facades\Storage;
+use App\Models\Wine;
+use App\Models\Category;
+use App\Models\WineGuide;
 use Illuminate\Support\Str;
 
 class WineController extends Controller
@@ -14,11 +16,12 @@ class WineController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        $wines = Wine::with('category')->get();
+{
+    $wines = Wine::with('category')->latest()->get();
 
-        return view('admin.wines.index', compact('wines'));
-    }
+    return view('admin.wines.index', compact('wines'));
+}
+
 
     /**
      * Show the form for creating a new resource.
@@ -79,11 +82,17 @@ class WineController extends Controller
         $wine = Wine::findOrFail($id);
         $imagePath = $wine->image;
         if ($request->hasFile('image')) {
+
+            if ($wine->image) {
+                Storage::disk('public')->delete($wine->image);
+            }
+
             $imagePath = $request->file('image')->store('wines', 'public');
         }
         $wine->update([
             'category_id' => $request->category_id,
             'name' => $request->name,
+            'slug' => Str::slug($request->name),
             'brand' => $request->brand,
             'country' => $request->country,
             'year' => $request->year,

@@ -4,58 +4,58 @@
 
 <div class="container">
 
-<h2>Wine Guides</h2>
+    <h2>Wine Guides</h2>
 
-<a href="{{ route('admin.wineGuides.create') }}" class="btn btn-primary mb-3">
-Add Guide
-</a>
+    <a href="{{ route('admin.wineGuides.create') }}" class="btn btn-primary mb-3">
+        Add Guide
+    </a>
 
-<table class="table table-bordered">
+    <table class="table table-bordered">
 
-<thead>
-<tr>
-<th>ID</th>
-<th>Title</th>
-<th>Actions</th>
-</tr>
-</thead>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
 
-<tbody>
+        <tbody>
 
-@foreach($guides as $guide)
+            @foreach($guides as $guide)
 
-<tr>
+            <tr>
 
-<td>{{ $guide->id }}</td>
+                <td>{{ $guide->id }}</td>
 
-<td>{{ $guide->title }}</td>
+                <td>{{ $guide->title }}</td>
 
-<td>
+                <td>
 
-<a href="{{ route('admin.wine-guides.edit',$guide->id) }}" class="btn btn-warning btn-sm">
-Edit
-</a>
+                    <a href="{{ route('admin.wineGuides.edit', $guide->id) }}" class="btn btn-warning btn-sm">
+                        Edit
+                    </a>
 
-<form action="{{ route('admin.wine-guides.destroy',$guide->id) }}" method="POST" style="display:inline">
+                    <form action="{{ route('admin.wineGuides.destroy',$guide->id) }}" method="POST" style="display:inline">
 
-@csrf
-@method('DELETE')
+                        @csrf
+                        @method('DELETE')
 
-<button class="btn btn-danger btn-sm">
-Delete
-</button>
+                        <button class="btn btn-danger btn-sm">
+                            Delete
+                        </button>
 
-</form>
+                    </form>
 
-</td>
+                </td>
 
-</tr>
+            </tr>
 
-@endforeach
+            @endforeach
 
-</tbody>
+        </tbody>
 
-</table>
+    </table>
 
 </div>
 

@@ -4,61 +4,72 @@
 
 <div class="container">
 
-<h2>Categories</h2>
+    ```
+    <h2>Categories</h2>
 
-<a href="{{ route('admin.categories.create') }}" class="btn btn-primary mb-3">
-Add Category
-</a>
+    <a href="{{ route('admin.categories.create') }}" class="btn btn-primary mb-3">
+        Add Category
+    </a>
 
-<table class="table table-bordered">
+    <table class="table table-bordered">
 
-<thead>
-<tr>
-<th>ID</th>
-<th>Name</th>
-<th>Description</th>
-<th>Actions</th>
-</tr>
-</thead>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
 
-<tbody>
+        <tbody>
 
-@foreach($categories as $category)
+            @foreach($categories as $category)
 
-<tr>
+            <tr>
 
-<td>{{ $category->id }}</td>
+                <td>{{ $category->id }}</td>
 
-<td>{{ $category->name }}</td>
+                <td>
+                    @if($category->image)
+                    <img src="{{ asset('storage/'.$category->image) }}" width="60">
+                    @else
+                    No Image
+                    @endif
+                </td>
 
-<td>{{ $category->description }}</td>
+                <td>{{ $category->name }}</td>
 
-<td>
+                <td>{{ $category->description }}</td>
 
-<a href="{{ route('admin.categories.edit',$category->id) }}" class="btn btn-warning btn-sm">
-Edit
-</a>
+                <td>
 
-<form action="{{ route('admin.categories.destroy',$category->id) }}" method="POST" style="display:inline">
+                    <a href="{{ route('admin.categories.edit',$category->id) }}" class="btn btn-warning btn-sm">
+                        Edit
+                    </a>
 
-@csrf
-@method('DELETE')
+                    <form action="{{ route('admin.categories.destroy',$category->id) }}" method="POST" style="display:inline">
 
-<button class="btn btn-danger btn-sm">
-Delete
-</button>
+                        @csrf
+                        @method('DELETE')
 
-</form>
+                        <button class="btn btn-danger btn-sm">
+                            Delete
+                        </button>
 
-</td>
+                    </form>
 
-</tr>
+                </td>
 
-@endforeach
+            </tr>
 
-</tbody>
+            @endforeach
 
-</table>
+        </tbody>
+
+    </table>
+    ```
 
 </div>
 

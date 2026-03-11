@@ -4,27 +4,36 @@
 
 <div class="container">
 
-<h2>Add Category</h2>
+    <h2 class="mb-4">Add Category</h2>
 
-<form action="{{ route('admin.categories.store') }}" method="POST">
+    <form action="{{ route('admin.categories.store') }}" method="POST" enctype="multipart/form-data">
 
-@csrf
+        @csrf
 
-<div class="mb-3">
-<label>Name</label>
-<input type="text" name="name" class="form-control" required>
-</div>
+        <div class="mb-3">
+            <label class="form-label">Category Name</label>
+            <input type="text" name="name" class="form-control" required>
+        </div>
 
-<div class="mb-3">
-<label>Description</label>
-<textarea name="description" class="form-control"></textarea>
-</div>
+        <div class="mb-3">
+            <label class="form-label">Description</label>
+            <textarea name="description" class="form-control" rows="4"></textarea>
+        </div>
 
-<button class="btn btn-success">
-Save Category
-</button>
+        <div class="mb-3">
+            <label class="form-label">Category Image</label>
+            <input type="file" name="image" class="form-control">
+        </div>
 
-</form>
+        <button type="submit" class="btn btn-success">
+            Save Category
+        </button>
+
+        <a href="{{ route('admin.categories.index') }}" class="btn btn-secondary">
+            Cancel
+        </a>
+
+    </form>
 
 </div>
 

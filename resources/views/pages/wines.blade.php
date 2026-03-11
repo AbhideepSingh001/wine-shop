@@ -59,6 +59,7 @@ WINE CARDS
         border-radius: 6px;
         overflow: hidden;
         transition: all .3s;
+        background-color: #fff8f0;
     }
 
     .wine-card:hover {
@@ -107,7 +108,7 @@ PAGE HEADER
 
     <div class="container">
 
-        <h1>Our Wine Collection</h1>
+        <h1>Our Wine</h1>
 
         <p>Explore our premium wines from around the world.</p>
 
@@ -128,38 +129,71 @@ WINE LISTING
 
         {{-- FILTER BAR --}}
 
-        <div class="filter-bar row">
+        <form method="GET" action="{{ route('wines.index') }}">
 
-            <div class="col-md-4">
+            <div class="filter-bar row">
 
-                <select class="form-select">
-                    <option>All Categories</option>
-                    <option>Red Wine</option>
-                    <option>White Wine</option>
-                    <option>Champagne</option>
-                </select>
+                <div class="col-md-4">
+
+                    <select name="category" class="form-select" onchange="this.form.submit()">
+
+                        <option value="">All Categories</option>
+
+                        @foreach($categories as $category)
+
+                        <option value="{{ $category->id }}"
+                            {{ request('category') == $category->id ? 'selected' : '' }}>
+
+                            {{ $category->name }}
+
+                        </option>
+
+                        @endforeach
+
+                    </select>
+
+                </div>
+
+
+                <div class="col-md-4">
+
+                    <select name="sort" class="form-select" onchange="this.form.submit()">
+
+                        <option value="">Sort By</option>
+
+                        <option value="low"
+                            {{ request('sort') == 'low' ? 'selected' : '' }}>
+
+                            Price Low to High
+
+                        </option>
+
+                        <option value="high"
+                            {{ request('sort') == 'high' ? 'selected' : '' }}>
+
+                            Price High to Low
+
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="col-md-4">
+
+                    <input
+                        type="text"
+                        name="search"
+                        value="{{ request('search') }}"
+                        class="form-control"
+                        placeholder="Search wine...">
+
+                </div>
 
             </div>
 
-
-            <div class="col-md-4">
-
-                <select class="form-select">
-                    <option>Sort By</option>
-                    <option>Price Low to High</option>
-                    <option>Price High to Low</option>
-                </select>
-
-            </div>
-
-
-            <div class="col-md-4">
-
-                <input type="text" class="form-control" placeholder="Search wine...">
-
-            </div>
-
-        </div>
+        </form>
 
 
 
@@ -190,15 +224,14 @@ WINE LISTING
 
                             <div class="wine-price">
 
-                                ${{ $wine->price }}
+                                ₹{{ $wine->price }}
 
                             </div>
 
-                            <button class="btn btn-gold">
-
-                                Add to Wishlist
-
-                            </button>
+                            <form action="{{ route('wishlist.add',$wine->id) }}" method="POST">
+                                @csrf
+                                <button class="btn btn-danger">Add To Wishlist</button>
+                            </form>
 
                         </div>
 

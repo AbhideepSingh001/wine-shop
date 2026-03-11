@@ -22,43 +22,51 @@ class WineGuideController extends Controller
 
     public function store(Request $request)
     {
-        $imgPath = null;
-        if ($request->hasFile('image')) {
-            $imgPath = $request->file('image')->store('wineGuide', 'public');
-        }
-        WineGuide::create([
-            'title' => $request->title,
-            'slug' => Str::slug($request->title),
-            'content' => $request->content,
-            'img' => $imgPath
+
+        $data = $request->validate([
+            'title' => 'required',
+            'content' => 'required',
+            'type' => 'required',
+            'image' => 'nullable|image'
         ]);
-        return redirect()->route('admin.wineGuide.index');
+
+        $data['slug'] = Str::slug($request->title);
+
+        if ($request->hasFile('image')) {
+            $data['image'] = $request->file('image')->store('wineGuide', 'public');
+        }
+
+        WineGuide::create($data);
+
+        return redirect()->route('admin.wineGuides.index');
     }
 
     public function edit($id)
     {
-        $guides = WineGuide::findOrfail($id);
+        $guide = WineGuide::findOrFail($id);
+
         return view('admin.wineGuide.edit', compact('guide'));
     }
-
-    public function update(Request $request, $id) {
+    public function update(Request $request, $id)
+    {
         $guide = WineGuide::findOrFail($id);
         $imgPath = $guide->image;
 
-        if($request->hasFile('image')){
+        if ($request->hasFile('image')) {
             $imgPath = $request->file('image')->store('wineGuide', 'public');
         }
 
         $guide->update([
-            'title'=>$request->title,
-            'slug'=>Str::slug($request->title),
-            'content'=>$request->content, 
-            'image'=>$imgPath
+            'title' => $request->title,
+            'slug' => Str::slug($request->title),
+            'content' => $request->content,
+            'image' => $imgPath
         ]);
-        return redirect()->route('admin.wineGuide.index');
+        return redirect()->route('admin.wineGuides.index');
     }
 
-    public function destroy($id) {
+    public function destroy($id)
+    {
         $guide = WineGuide::findOrFail($id);
         $guide->delete();
 

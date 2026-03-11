@@ -13,10 +13,10 @@ PAGE HEADER
         height: 45vh;
         background:url('{{ asset("assets/images/hero/hero3.png") }}') center/cover;
         display: flex;
-    align-items: center;      /* vertical center */
-    justify-content: center;  /* horizontal center */
-    text-align: center;       /* text center */
-    position: relative;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        position: relative;
     }
 
     .page-overlay {
@@ -36,10 +36,10 @@ GUIDE CARDS
 ========================= */
 
     .guide-card {
-        background: white;
+        background: #fff8f0;
         border-radius: 6px;
         padding: 25px;
-        transition: all .3s;
+        transition: .3s;
         height: 100%;
     }
 
@@ -57,9 +57,7 @@ GUIDE CARDS
 TIPS SECTION
 ========================= */
 
-    .tips-section {
-        background: var(--secondary-bg);
-    }
+    
 
     .tip-box {
         background: white;
@@ -67,8 +65,15 @@ TIPS SECTION
         border-left: 4px solid var(--accent-gold);
         margin-bottom: 20px;
         border-radius: 4px;
+        transition: .3s;
+        background-color: #fff8f0;
     }
-    .paratext{
+
+    .tip-box:hover {
+        transform: translateX(5px);
+    }
+
+    .paratext {
         color: black;
     }
 </style>
@@ -77,7 +82,6 @@ TIPS SECTION
 
 
 @section('content')
-
 
 {{-- =========================
 PAGE HEADER
@@ -99,7 +103,7 @@ PAGE HEADER
 
 
 {{-- =========================
-WINE TYPES GUIDE
+TYPES OF WINE
 ========================= --}}
 
 <section class="section">
@@ -112,52 +116,29 @@ WINE TYPES GUIDE
 
         <div class="row g-4">
 
+            @forelse($types as $guide)
+
             <div class="col-md-4">
 
                 <div class="guide-card">
 
-                    <h4>Red Wine</h4>
+                    <h4>{{ $guide->title }}</h4>
 
                     <p class="paratext">
-                        Red wines are made from dark-colored grape varieties. They are rich,
-                        bold and often paired with red meat and hearty dishes.
+                        {{ $guide->content }}
                     </p>
 
                 </div>
 
             </div>
 
+            @empty
 
-            <div class="col-md-4">
-
-                <div class="guide-card">
-
-                    <h4>White Wine</h4>
-
-                    <p class="paratext">
-                        White wines are lighter and refreshing. They are commonly paired
-                        with seafood, chicken and light dishes.
-                    </p>
-
-                </div>
-
+            <div class="col-12 text-center">
+                <p>No wine types available.</p>
             </div>
 
-
-            <div class="col-md-4">
-
-                <div class="guide-card">
-
-                    <h4>Sparkling Wine</h4>
-
-                    <p class="paratext">
-                        Sparkling wines contain natural carbonation and are perfect for
-                        celebrations and special occasions.
-                    </p>
-
-                </div>
-
-            </div>
+            @endforelse
 
         </div>
 
@@ -168,7 +149,7 @@ WINE TYPES GUIDE
 
 
 {{-- =========================
-WINE TASTING STEPS
+HOW TO TASTE WINE
 ========================= --}}
 
 <section class="section section-dark">
@@ -181,56 +162,29 @@ WINE TASTING STEPS
 
         <div class="row g-4">
 
+            @forelse($tasting as $guide)
+
             <div class="col-md-3">
 
-                <div class="guide-card text-center">
+                <div class="guide-card text-center" style="background-color: white;">
 
-                    <h4>Look</h4>
+                    <h4>{{ $guide->title }}</h4>
 
-                    <p class="paratext">Observe the wine color and clarity in the glass.</p>
+                    <p class="paratext">
+                        {{ $guide->content }}
+                    </p>
 
                 </div>
 
             </div>
 
+            @empty
 
-            <div class="col-md-3">
-
-                <div class="guide-card text-center">
-
-                    <h4>Swirl</h4>
-
-                    <p class="paratext">Swirl the wine to release aromas and oxygenate it.</p>
-
-                </div>
-
+            <div class="col-12 text-center">
+                <p>No tasting guides available.</p>
             </div>
 
-
-            <div class="col-md-3">
-
-                <div class="guide-card text-center">
-
-                    <h4>Smell</h4>
-
-                    <p class="paratext">Take in the aromas to understand the wine profile.</p>
-
-                </div>
-
-            </div>
-
-
-            <div class="col-md-3">
-
-                <div class="guide-card text-center">
-
-                    <h4>Taste</h4>
-
-                    <p class="paratext">Take a sip and notice flavor balance and finish.</p>
-
-                </div>
-
-            </div>
+            @endforelse
 
         </div>
 
@@ -254,36 +208,30 @@ WINE SERVING TIPS
 
         <div class="row">
 
-            <div class="col-md-6">
-
-                <div class="tip-box">
-                    Serve red wines slightly below room temperature.
-                </div>
-
-                <div class="tip-box">
-                    White wines taste best when chilled.
-                </div>
-
-            </div>
-
+            @forelse($tips as $guide)
 
             <div class="col-md-6">
 
                 <div class="tip-box">
-                    Use the right glass to enhance wine aroma.
-                </div>
 
-                <div class="tip-box">
-                    Allow wine to breathe before serving.
+                    {{ $guide->content }}
+
                 </div>
 
             </div>
+
+            @empty
+
+            <div class="col-12 text-center">
+                <p>No tips available.</p>
+            </div>
+
+            @endforelse
 
         </div>
 
     </div>
 
 </section>
-
 
 @endsection

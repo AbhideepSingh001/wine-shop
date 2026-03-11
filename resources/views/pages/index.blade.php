@@ -3,6 +3,7 @@
 @section('title','Home')
 
 @push('styles')
+
 <style>
     /* ================================
 HOME PAGE STYLES
@@ -128,7 +129,7 @@ HOME PAGE STYLES
     }
 
     .product-card img {
-        height: 220px;
+        height: 350px;
         object-fit: cover;
     }
 
@@ -165,30 +166,26 @@ HOME PAGE STYLES
         width: 350px;
         max-width: 90%;
         padding: 12px;
-        border: 1ps solid black;
+        border: 1px solid black;
         outline: none;
         margin-right: 10px;
-
     }
 
     #experiencePara {
         color: goldenrod;
-        
     }
 
     .paratext {
         color: black;
     }
 </style>
+
 @endpush
 
 
 @section('content')
 
-
-{{-- =================================
-HERO SLIDER
-================================= --}}
+{{-- HERO SLIDER --}}
 
 <section class="hero">
 
@@ -231,9 +228,7 @@ HERO SLIDER
 
 
 
-{{-- =================================
-CATEGORIES
-================================= --}}
+{{-- CATEGORIES DYNAMIC --}}
 
 <section class="section">
 
@@ -245,26 +240,23 @@ CATEGORIES
 
         <div class="row g-4">
 
-            <div class="col-md-4">
-                <div class="category-card">
-                    <img src="{{ asset('assets/images/categories/red.jpg') }}">
-                    <div class="category-label">Red Wine</div>
-                </div>
-            </div>
+            @foreach($categories as $category)
 
             <div class="col-md-4">
+
                 <div class="category-card">
-                    <img src="{{ asset('assets/images/categories/white.jpg') }}">
-                    <div class="category-label">White Wine</div>
+
+                    <img src="{{ asset('storage/'.$category->image) }}">
+
+                    <div class="category-label">
+                        {{ $category->name }}
+                    </div>
+
                 </div>
+
             </div>
 
-            <div class="col-md-4">
-                <div class="category-card">
-                    <img src="{{ asset('assets/images/categories/champagne.jpg') }}">
-                    <div class="category-label">Champagne</div>
-                </div>
-            </div>
+            @endforeach
 
         </div>
 
@@ -274,43 +266,35 @@ CATEGORIES
 
 
 
-{{-- =================================
-COLLECTION BANNERS
-================================= --}}
+{{-- COLLECTIONS DYNAMIC --}}
 
 <section class="section section-dark">
 
     <div class="container">
+
         <div class="section-title">
             <h2>Collections</h2>
         </div>
 
         <div class="row g-4">
 
-            <div class="col-md-6">
-
-                <div class="collection-banner">
-
-                    <img src="{{ asset('assets/images/collection-banners/PremiumWineCollectionBanner.png') }}">
-
-                    <div class="banner-text">Premium Collection</div>
-
-                </div>
-
-            </div>
-
+            @foreach($collections as $collection)
 
             <div class="col-md-6">
 
                 <div class="collection-banner">
 
-                    <img src="{{ asset('assets/images/collection-banners/VineyardLuxuryBanner.png') }}">
+                    <img src="{{ asset('storage/'.$collection->image) }}">
 
-                    <div class="banner-text">Luxury Vineyard</div>
+                    <div class="banner-text">
+                        {{ $collection->name }}
+                    </div>
 
                 </div>
 
             </div>
+
+            @endforeach
 
         </div>
 
@@ -320,9 +304,7 @@ COLLECTION BANNERS
 
 
 
-{{-- =================================
-FEATURED WINES
-================================= --}}
+{{-- FEATURED WINES DYNAMIC --}}
 
 <section class="section">
 
@@ -334,19 +316,27 @@ FEATURED WINES
 
         <div class="row g-4">
 
+            @foreach($featuredWines as $wine)
+
             <div class="col-md-3">
 
                 <div class="card product-card">
 
-                    <img src="{{ asset('assets/images/wine-products/Cabernet.jpg') }}">
+                    <img src="{{ asset('storage/'.$wine->image) }}">
 
                     <div class="card-body text-center">
 
-                        <div class="product-title">Cabernet</div>
+                        <div class="product-title">
+                            {{ $wine->name }}
+                        </div>
 
-                        <div class="price">$120</div>
+                        <div class="price">
+                            ${{ $wine->price }}
+                        </div>
 
-                        <button class="btn btn-gold mt-2">Add to Wishlist</button>
+                        <a href="/wines/{{ $wine->slug }}" class="btn btn-gold mt-2">
+                            View Wine
+                        </a>
 
                     </div>
 
@@ -354,68 +344,7 @@ FEATURED WINES
 
             </div>
 
-
-            <div class="col-md-3">
-
-                <div class="card product-card">
-
-                    <img src="{{ asset('assets/images/wine-products/Chardonnay.jpg') }}">
-
-                    <div class="card-body text-center">
-
-                        <div class="product-title">Chardonnay</div>
-
-                        <div class="price">$95</div>
-
-                        <button class="btn btn-gold mt-2">Add to Wishlist</button>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <div class="col-md-3">
-
-                <div class="card product-card">
-
-                    <img src="{{ asset('assets/images/wine-products/Merlot.jpg') }}">
-
-                    <div class="card-body text-center">
-
-                        <div class="product-title">Merlot</div>
-
-                        <div class="price">$110</div>
-
-                        <button class="btn btn-gold mt-2">Add to Wishlist</button>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <div class="col-md-3">
-
-                <div class="card product-card">
-
-                    <img src="{{ asset('assets/images/wine-products/Pinot.jpg') }}">
-
-                    <div class="card-body text-center">
-
-                        <div class="product-title">Pinot Noir</div>
-
-                        <div class="price">$105</div>
-
-                        <button class="btn btn-gold mt-2">Add to Wishlist</button>
-
-                    </div>
-
-                </div>
-
-            </div>
+            @endforeach
 
         </div>
 
@@ -425,9 +354,7 @@ FEATURED WINES
 
 
 
-{{-- =================================
-ABOUT SECTION
-================================= --}}
+{{-- ABOUT SECTION --}}
 
 <section class="section section-dark">
 
@@ -436,9 +363,7 @@ ABOUT SECTION
         <div class="row align-items-center">
 
             <div class="col-md-6">
-
                 <img src="{{ asset('assets/images/about/Vineyard.jpg') }}" class="about-img">
-
             </div>
 
             <div class="col-md-6">
@@ -446,12 +371,13 @@ ABOUT SECTION
                 <h2>Our Wine Experience</h2>
 
                 <p class="paratext">
-                    WineHouse brings together tradition, craftsmanship, and
-                    luxury taste. Our vineyards produce exceptional wines
-                    carefully aged to deliver unforgettable flavors.
+                    WineHouse brings together tradition, craftsmanship, and luxury taste.
+                    Our vineyards produce exceptional wines carefully aged to deliver unforgettable flavors.
                 </p>
 
-                <a href="/about" class="btn btn-gold mt-3">Learn More</a>
+                <a href="/about" class="btn btn-gold mt-3">
+                    Learn More
+                </a>
 
             </div>
 
@@ -463,9 +389,7 @@ ABOUT SECTION
 
 
 
-{{-- =================================
-NEWSLETTER
-================================= --}}
+{{-- NEWSLETTER --}}
 
 <section class="section newsletter">
 
@@ -473,19 +397,22 @@ NEWSLETTER
 
         <h2>Join Our Wine Club</h2>
 
-        <p class="paratext">Get updates about new wine collections and events.</p>
+        <p class="paratext">
+            Get updates about new wine collections and events.
+        </p>
 
         <form class="mt-4">
 
-            <input type="email" placeholder="Enter your email" >
+            <input type="email" placeholder="Enter your email">
 
-            <button class="btn btn-gold">Subscribe</button>
+            <button class="btn btn-gold">
+                Subscribe
+            </button>
 
         </form>
 
     </div>
 
 </section>
-
 
 @endsection

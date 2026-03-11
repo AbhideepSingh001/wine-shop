@@ -43,7 +43,7 @@ COLLECTION CARDS
 
     .collection-card img {
         width: 100%;
-        height: 320px;
+        height: 500px;
         object-fit: cover;
         transition: transform .5s;
     }
@@ -54,12 +54,16 @@ COLLECTION CARDS
 
     .collection-content {
         position: absolute;
-        bottom: 20px;
-        left: 20px;
+        bottom: 0px;
+        
         color: white;
         background: rgba(0, 0, 0, .55);
         padding: 12px 18px;
         border-radius: 4px;
+        opacity: 0;
+    }
+    .collection-card:hover .collection-content{
+        opacity: 1;
     }
 
     .collection-content h4 {

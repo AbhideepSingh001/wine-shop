@@ -10,6 +10,7 @@ class WineGuide extends Model
         'title',
         'slug',
         'content',
-        'image'
+        'image',
+        'type'
     ];
 }
