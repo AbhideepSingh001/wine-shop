@@ -14,13 +14,13 @@ class Order extends Model
         'status'
     ];
 
-    public function wine()
-    {
-        return $this->belongsTo(\App\Models\Wine::class);
-    }
-
     public function user()
     {
-        return $this->belongsTo(\App\Models\User::class);
+        return $this->belongsTo(User::class);
+    }
+
+    public function wine()
+    {
+        return $this->belongsTo(Wine::class);
     }
 }

@@ -4,115 +4,136 @@
 
 <div class="container">
 
-    <h2 class="mb-4">Customer Orders</h2>
+<h2 class="mb-4">Customer Orders</h2>
 
-    {{-- Alert Message --}}
-    @if(session('success'))
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
+@if(session('success'))
+<div class="alert alert-success alert-dismissible fade show">
 
-        {{ session('success') }}
+{{ session('success') }}
 
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
 
-    </div>
-    @endif
+</div>
+@endif
 
+<div class="card shadow-sm">
 
-    <div class="card shadow-sm">
+<div class="card-body">
 
-        <div class="card-body">
+<table class="table table-bordered table-hover">
 
-            <table class="table table-bordered table-hover">
+<thead class="table-dark">
 
-                <thead class="table-dark">
+<tr>
 
-                    <tr>
+<th>ID</th>
+<th>User</th>
+<th>Wine</th>
+<th>Price</th>
+<th>Quantity</th>
+<th>Phone</th>
+<th>Table</th>
+<th>Status</th>
+<th>Action</th>
 
-                        <th>ID</th>
-                        <th>User</th>
-                        <th>Wine</th>
-                        <th>Price</th>
-                        <th>Quantity</th>
-                        <th>Phone</th>
-                        <th>Table</th>
-                        <th>Status</th>
-                        <th>Action</th>
+</tr>
 
-                    </tr>
+</thead>
 
-                </thead>
+<tbody>
 
-                <tbody>
+@forelse($orders as $order)
 
-                    @forelse($orders as $order)
+<tr>
 
-                    <tr>
+<td>{{ $loop->iteration }}</td>
 
-                        <td>{{ $order->id }}</td>
+<td>{{ $order->user->name }}</td>
 
-                        <td>{{ $order->user->name }}</td>
+<td>{{ $order->wine->name }}</td>
 
-                        <td>{{ $order->wine->name }}</td>
+<td>₹{{ $order->price }}</td>
 
-                        <td>₹{{ $order->price }}</td>
+<td>{{ $order->quantity }}</td>
 
-                        <td>{{ $order->quantity }}</td>
+<td>{{ $order->phone }}</td>
 
-                        <td>{{ $order->phone }}</td>
+<td>{{ $order->table_number }}</td>
 
-                        <td>{{ $order->table_number }}</td>
+<td>
 
-                        <td>
+<form action="{{ route('admin.orders.status',$order->id) }}" method="POST">
 
-                            <span class="badge bg-warning text-dark">
+@csrf
+@method('PATCH')
 
-                                {{ $order->status }}
+<select name="status"
+class="form-select form-select-sm"
+onchange="this.form.submit()">
 
-                            </span>
+<option value="pending" {{ $order->status=='pending' ? 'selected':'' }}>
+Pending
+</option>
 
-                        </td>
+<option value="preparing" {{ $order->status=='preparing' ? 'selected':'' }}>
+Preparing
+</option>
 
-                        <td>
+<option value="served" {{ $order->status=='served' ? 'selected':'' }}>
+Served
+</option>
 
-                            <form action="{{ route('admin.orders.delete',$order->id) }}" method="POST">
+<option value="cancelled" {{ $order->status=='cancelled' ? 'selected':'' }}>
+Cancelled
+</option>
 
-                                @csrf
-                                @method('DELETE')
+</select>
 
-                                <button class="btn btn-danger btn-sm"
-                                    onclick="return confirm('Are you sure to cancel this order?')">
+</form>
 
-                                    Cancel Order
+</td>
 
-                                </button>
+<td>
 
-                            </form>
+<form action="{{ route('admin.orders.delete',$order->id) }}" method="POST">
 
-                        </td>
+@csrf
+@method('DELETE')
 
-                    </tr>
+<button class="btn btn-danger btn-sm"
+onclick="return confirm('Are you sure to cancel this order?')">
 
-                    @empty
+Cancel Order
 
-                    <tr>
+</button>
 
-                        <td colspan="9" class="text-center">
+</form>
 
-                            No Orders Found
+</td>
 
-                        </td>
+</tr>
 
-                    </tr>
+@empty
 
-                    @endforelse
+<tr>
 
-                </tbody>
+<td colspan="9" class="text-center">
 
-            </table>
+No Orders Found
 
-        </div>
+</td>
 
-    </div>
+</tr>
+
+@endforelse
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
 
 </div>
 

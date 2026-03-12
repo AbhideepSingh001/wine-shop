@@ -223,8 +223,7 @@ FOOTER
 </head>
 
 
-<body>
-
+<body class="d-flex flex-column min-vh-100">
 
 
     {{-- ===============================
@@ -233,7 +232,7 @@ NAVBAR
 
     <nav class="navbar navbar-expand-lg">
 
-        <div class="container">
+        <div class="container-fluid">
 
             <a class="navbar-brand" href="/">
                 <img src="{{ asset('assets/images/logo/logo.png') }}" alt="WineHouse Logo" class="logo">
@@ -349,10 +348,13 @@ NAVBAR
                         </a>
 
                     </li>
+                    <li class="nav-item">
 
-                    <li class="nav-item icon-btn">
+                        <a class="nav-link" href="{{ route('orders.index') }}">
 
-                        <i class="bi bi-bag"></i>
+                            <i class="bi bi-bag"></i> 
+
+                        </a>
 
                     </li>
 
@@ -391,7 +393,7 @@ NAVBAR
 
 
     {{-- MAIN CONTENT --}}
-    <main>
+    <main class="flex-fill">
 
         @yield('content')
 

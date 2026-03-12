@@ -11,9 +11,8 @@ class OrderController extends Controller
 
     public function index()
     {
-
-        $orders = Order::where('user_id', auth()->id())
-            ->with('wine')
+        $orders = Order::with('wine')
+            ->where('user_id', auth()->id())
             ->latest()
             ->get();
 

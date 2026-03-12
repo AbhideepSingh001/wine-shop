@@ -79,7 +79,7 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->group(function () {
 
     Route::get('/orders', [OrderController::class, 'index'])
-        ->name('orders.index');
+    ->name('orders.index');
 
     Route::post('/orders/place/{id}', [OrderController::class, 'place'])
         ->name('orders.place');
@@ -113,6 +113,8 @@ Route::prefix('admin')
         /* Orders */
         Route::get('/orders', [AdminOrderController::class, 'index'])
             ->name('orders.index');
+        Route::patch('/orders/status/{id}', [AdminOrderController::class, 'updateStatus'])
+            ->name('orders.status');
 
         Route::delete('/orders/{id}', [AdminOrderController::class, 'destroy'])
             ->name('orders.delete');

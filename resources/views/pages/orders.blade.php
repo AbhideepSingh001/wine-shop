@@ -1,54 +1,87 @@
 @extends('layouts.app')
 
-@section('title','My Orders')
-
 @section('content')
 
-<div class="container py-5">
+<div class="container">
 
-<h2 class="mb-4">My Orders</h2>
+    <h2 class="mb-4">My Orders</h2>
 
-@if($orders->count() == 0)
+    <div class="card shadow-sm">
 
-<div class="alert alert-info">
-No orders yet.
-</div>
+        <div class="card-body">
 
-@else
+            <table class="table table-bordered">
 
-<div class="row g-4">
+                <thead class="table-dark">
 
-@foreach($orders as $order)
+                    <tr>
 
-<div class="col-md-3">
+                        <th>#</th>
+                        <th>Wine</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Status</th>
+                        <th>Order Time</th>
 
-<div class="card h-100">
+                    </tr>
 
-<img src="{{ asset('storage/'.$order->wine->image) }}" class="card-img-top">
+                </thead>
 
-<div class="card-body text-center">
+                <tbody>
 
-<h5>{{ $order->wine->name }}</h5>
+                    @forelse($orders as $order)
 
-<p class="text-warning fw-bold">
-₹{{ $order->price }}
-</p>
+                    <tr>
 
-<span class="badge bg-success">
-{{ $order->status }}
-</span>
+                        <td>{{ $loop->iteration }}</td>
 
-</div>
+                        <td>{{ $order->wine->name }}</td>
 
-</div>
+                        <td>₹{{ $order->price }}</td>
 
-</div>
+                        <td>{{ $order->quantity }}</td>
 
-@endforeach
+                        <td>
 
-</div>
-
+                            <span class="badge
+@if($order->status=='pending') bg-warning
+@elseif($order->status=='preparing') bg-info
+@elseif($order->status=='served') bg-success
+@elseif($order->status=='cancelled') bg-danger
 @endif
+">
+
+                                {{ ucfirst($order->status) }}
+
+                            </span>
+
+                        </td>
+
+                        <td>{{ $order->created_at->format('d M Y H:i') }}</td>
+
+                    </tr>
+
+                    @empty
+
+                    <tr>
+
+                        <td colspan="6" class="text-center">
+
+                            No Orders Found
+
+                        </td>
+
+                    </tr>
+
+                    @endforelse
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
 
 </div>
 
