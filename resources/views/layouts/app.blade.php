@@ -31,7 +31,7 @@ GLOBAL DESIGN SYSTEM
             --text-color: black;
 
         }
-        
+
 
         /* ===============================
 GLOBAL RESET
@@ -211,10 +211,11 @@ FOOTER
             color: var(--accent-gold);
 
         }
-        .navbar-brand img.logo{
-    height: 40px;
-    width: auto;
-}
+
+        .navbar-brand img.logo {
+            height: 40px;
+            width: auto;
+        }
     </style>
 
     @stack('styles')
@@ -292,19 +293,69 @@ NAVBAR
 
 
                     {{-- User Account --}}
-                    <li class="nav-item icon-btn">
 
-                        <i class="bi bi-person"></i>
+                    @guest
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('login') }}">
+                            <i class="bi bi-person"></i> Login
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('register') }}">
+                            Register
+                        </a>
+                    </li>
+
+                    @endguest
+
+
+                    @auth
+
+                    <li class="nav-item dropdown">
+
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+
+                            <i class="bi bi-person-circle"></i> {{ auth()->user()->name }}
+
+                        </a>
+
+                        <ul class="dropdown-menu dropdown-menu-end">
+
+                            <li>
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <button type="submit" class="dropdown-item">
+                                        Logout
+                                    </button>
+                                </form>
+                            </li>
+
+                        </ul>
 
                     </li>
 
+                    @endauth
+
 
                     {{-- Cart --}}
+                    <li class="nav-item">
+
+                        <a class="nav-link" href="{{ route('wishlist.index') }}">
+
+                            <i class="bi bi-heart"></i> Wishlist
+
+                        </a>
+
+                    </li>
+
                     <li class="nav-item icon-btn">
 
                         <i class="bi bi-bag"></i>
 
                     </li>
+
 
                 </ul>
 
@@ -315,11 +366,31 @@ NAVBAR
     </nav>
 
 
+    </nav>
 
-    {{-- ===============================
-MAIN CONTENT
-=============================== --}}
 
+    {{-- ALERT MESSAGE --}}
+
+    @if(session('success'))
+    <div class="container mt-3">
+        <div class="alert alert-success alert-dismissible fade show">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    </div>
+    @endif
+
+    @if(session('error'))
+    <div class="container mt-3">
+        <div class="alert alert-danger alert-dismissible fade show">
+            {{ session('error') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    </div>
+    @endif
+
+
+    {{-- MAIN CONTENT --}}
     <main>
 
         @yield('content')
@@ -394,20 +465,6 @@ FOOTER
 
     {{-- Bootstrap Icons --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
-
-    @if(session('success'))
-<div class="alert alert-success alert-dismissible fade show" role="alert">
-    {{ session('success') }}
-    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-</div>
-@endif
-
-@if(session('error'))
-<div class="alert alert-danger alert-dismissible fade show" role="alert">
-    {{ session('error') }}
-    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-</div>
-@endif
 
 
     @stack('scripts')

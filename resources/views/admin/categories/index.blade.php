@@ -4,7 +4,6 @@
 
 <div class="container">
 
-    ```
     <h2>Categories</h2>
 
     <a href="{{ route('admin.categories.create') }}" class="btn btn-primary mb-3">
@@ -69,7 +68,7 @@
         </tbody>
 
     </table>
-    ```
+
 
 </div>
 

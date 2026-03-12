@@ -4,12 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Contact extends Model
+class Setting extends Model
 {
     protected $fillable = [
-        'name',
+        'address',
+        'phone',
         'email',
-        'subject',
-        'message'
+        'map',
+        'opening_hours'
     ];
 }

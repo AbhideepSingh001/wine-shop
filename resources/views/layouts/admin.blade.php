@@ -164,25 +164,42 @@ SIDEBAR
 
         <h5>WineHouse Admin</h5>
 
-        <a href="/admin/dashboard">
+        <a href="{{route('admin.dashboard') }}">
             <i class="bi bi-speedometer2"></i> Dashboard
         </a>
 
-        <a href="/admin/wines">
+        <a href="{{ url('/') }}">
+            <i class="bi bi-box-arrow-in-up-right"></i> Visit Our Site
+        </a>
+
+        <a href=" {{ route('admin.wines.index') }} ">
             <i class="bi bi-cup-straw"></i> Wines
         </a>
 
-        <a href="/admin/categories">
+        <a href="{{ route('admin.categories.index') }}">
             <i class="bi bi-tags"></i> Categories
         </a>
 
-        <a href="/admin/collections">
+        <a href="{{ route('admin.collections.index') }}">
             <i class="bi bi-grid"></i> Collections
         </a>
 
-        <a href="#">
+        <a href="{{ route('admin.orders.index') }}">
             <i class="bi bi-bag"></i> Orders
         </a>
+
+        <a href="{{ route('admin.contacts.index') }}" class="nav-link">
+            <i class="bi bi-chat-left"></i> Contact Messages
+        </a>
+
+        <a class="nav-link" href="{{ route('admin.settings.edit') }}">
+            <i class="bi bi-gear"></i> Contact Settings
+        </a>
+
+        <a class="nav-link" href="{{ route('admin.roles.index') }}">
+            <i class="bi bi-person-circle"></i> Role Setting
+        </a>
+
 
     </div>
 

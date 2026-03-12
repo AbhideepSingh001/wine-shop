@@ -10,14 +10,16 @@ PAGE HEADER
 ========================= */
 
     .page-header {
-    height:45vh;
-    background:url('{{ asset("assets/images/about/Vineyard.jpg") }}') center/cover;
-    display:flex;
-    align-items:center;
-    justify-content:center;   /* horizontal center */
-    text-align:center;        /* text center */
-    position:relative;
-}
+        height: 45vh;
+        background:url('{{ asset("assets/images/about/Vineyard.jpg") }}') center/cover;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        /* horizontal center */
+        text-align: center;
+        /* text center */
+        position: relative;
+    }
 
     .page-overlay {
         position: absolute;
@@ -30,7 +32,7 @@ PAGE HEADER
         z-index: 2;
         color: white;
     }
-    
+
 
     /* =========================
 CONTACT FORM
@@ -57,7 +59,7 @@ CONTACT FORM
         height: 120px;
         resize: none;
     }
-    
+
 
     /* =========================
 CONTACT INFO
@@ -89,7 +91,6 @@ MAP
         height: 400px;
         border: 0;
     }
-
 </style>
 
 @endpush
@@ -136,15 +137,47 @@ CONTACT SECTION
 
                     <h3>Send Us a Message</h3>
 
-                    <form>
+                    @if(session('success'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
 
-                        <input type="text" placeholder="Your Name">
+                        <strong>Success!</strong> {{ session('success') }}
 
-                        <input type="email" placeholder="Your Email">
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
 
-                        <input type="text" placeholder="Subject">
+                    </div>
+                    @endif
 
-                        <textarea placeholder="Your Message"></textarea>
+
+                    @if ($errors->any())
+                    <div class="alert alert-danger alert-dismissible fade show">
+
+                        <ul class="mb-0">
+
+                            @foreach ($errors->all() as $error)
+
+                            <li>{{ $error }}</li>
+
+                            @endforeach
+
+                        </ul>
+
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+
+                    </div>
+                    @endif
+
+
+                    <form action="{{ route('contact.store') }}" method="POST">
+
+                        @csrf
+
+                        <input type="text" name="name" placeholder="Your Name">
+
+                        <input type="email" name="email" placeholder="Your Email">
+
+                        <input type="text" name="subject" placeholder="Subject">
+
+                        <textarea name="message" placeholder="Your Message"></textarea>
 
                         <button class="btn btn-gold">Send Message</button>
 
@@ -153,7 +186,6 @@ CONTACT SECTION
                 </div>
 
             </div>
-
 
 
             {{-- CONTACT INFO --}}
@@ -166,23 +198,33 @@ CONTACT SECTION
 
                     <div class="contact-item">
                         <strong>Address:</strong><br>
-                        123 Vineyard Road,<br>
-                        Wine Valley, California
+
+                        {!! $setting->address ?? '' !!}
+
                     </div>
 
                     <div class="contact-item">
+
                         <strong>Phone:</strong><br>
-                        +1 234 567 890
+
+                        {{ $setting->phone ?? '' }}
+
                     </div>
 
                     <div class="contact-item">
+
                         <strong>Email:</strong><br>
-                        info@winehouse.com
+
+                        {{ $setting->email ?? '' }}
+
                     </div>
 
                     <div class="contact-item">
+
                         <strong>Opening Hours:</strong><br>
-                        Mon - Sat : 10:00 AM – 9:00 PM
+
+                        {{ $setting->opening_hours ?? '' }}
+
                     </div>
 
                 </div>
@@ -203,9 +245,7 @@ MAP SECTION
 
 <section class="map-section">
 
-    <iframe
-        src="https://www.google.com/maps?q=california+vineyard&output=embed">
-    </iframe>
+    <iframe src="{{ $setting->map ?? '' }}"></iframe>
 
 </section>
 

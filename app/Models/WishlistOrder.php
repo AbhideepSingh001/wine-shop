@@ -22,6 +22,6 @@ class WishlistOrder extends Model
 
     public function wine()
     {
-        return $this->belongsTo(Wine::class);
+        return $this->belongsTo(\App\Models\Wine::class);
     }
 }
