@@ -29,20 +29,7 @@
                 <td>{{ $user->email }}</td>
 
                 <td>
-                    <form action="{{ route('admin.roles.update',$user->id) }}" method="POST">
-
-                        @csrf
-
-                        <select name="role" class="form-control">
-
-                            <option value="user" {{ $user->role == 'user' ? 'selected' : '' }}>User</option>
-
-                            <option value="admin" {{ $user->role == 'admin' ? 'selected' : '' }}>Admin</option>
-
-                            <option value="super_admin" {{ $user->role == 'super_admin' ? 'selected' : '' }}>Super Admin</option>
-
-                        </select>
-
+                    {{ ucfirst($user->role) }}
                 </td>
 
                 <td>

@@ -6,7 +6,7 @@
 
     <h2>Wine Guides</h2>
 
-    <a href="{{ route('admin.wineGuides.create') }}" class="btn btn-primary mb-3">
+    <a href="{{ route('admin.wineGuide.create') }}" class="btn btn-primary mb-3">
         Add Guide
     </a>
 
@@ -32,11 +32,11 @@
 
                 <td>
 
-                    <a href="{{ route('admin.wineGuides.edit', $guide->id) }}" class="btn btn-warning btn-sm">
+                    <a href="{{ route('admin.wineGuide.edit', $guide->id) }}" class="btn btn-warning btn-sm">
                         Edit
                     </a>
 
-                    <form action="{{ route('admin.wineGuides.destroy',$guide->id) }}" method="POST" style="display:inline">
+                    <form action="{{ route('admin.wineGuide.destroy',$guide->id) }}" method="POST" style="display:inline">
 
                         @csrf
                         @method('DELETE')

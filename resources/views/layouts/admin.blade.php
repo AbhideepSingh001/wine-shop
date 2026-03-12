@@ -199,6 +199,9 @@ SIDEBAR
         <a class="nav-link" href="{{ route('admin.roles.index') }}">
             <i class="bi bi-person-circle"></i> Role Setting
         </a>
+        <a class="nav-link" href="{{ route('admin.wineGuide.index') }}">
+            <i class="bi bi-book"></i> Wine Guide
+        </a>
 
 
     </div>

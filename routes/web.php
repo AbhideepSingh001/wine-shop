@@ -123,7 +123,7 @@ Route::prefix('admin')
         Route::resource('banners', BannerController::class);
 
         /* Wine Guides */
-        Route::resource('wineguides', AdminWineGuideController::class);
+        Route::resource('wineGuide', AdminWineGuideController::class);
 
         /* Wishlist (Admin View) */
         Route::get('/wishlist', [AdminWishlistController::class, 'index'])
