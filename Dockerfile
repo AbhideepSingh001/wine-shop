@@ -16,6 +16,8 @@ WORKDIR /var/www/html
 COPY . .
 
 RUN composer install
+RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
+
 
 RUN a2enmod rewrite
 
